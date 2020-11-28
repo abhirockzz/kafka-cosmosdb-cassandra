@@ -1,0 +1,28 @@
+{
+    "name": "kafka-cosmosdb-sink",
+    "config": {
+        "connector.class": "com.datastax.oss.kafka.sink.CassandraSinkConnector",
+        "tasks.max": "1",
+        "topics": "weather-data",
+        "contactPoints": "<enter cosmosdb account name>.cassandra.cosmos.azure.com",
+        "loadBalancing.localDc": "<enter cosmosdb region e.g. Southeast Asia>",
+        "datastax-java-driver.advanced.connection.init-query-timeout": 5000,
+        "ssl.hostnameValidation": true,
+        "ssl.provider": "JDK",
+        "ssl.keystore.path": "/etc/alternatives/jre/lib/security/cacerts/",
+        "ssl.keystore.password": "changeit",
+        "port": 10350,
+        "maxConcurrentRequests": 500,
+        "maxNumberOfRecordsInBatch": 32,
+        "queryExecutionTimeout": 30,
+        "connectionPoolLocalSize": 4,
+        "auth.username": "<enter cosmosdb username",
+        "auth.password": "<enter cosmosdb password>",
+        "topic.weather-data.weather.data_by_state.mapping": "station_id=value.stationid, temp=value.temp, state=value.state, ts=value.created",
+        "topic.weather-data.weather.data_by_station.mapping": "station_id=value.stationid, temp=value.temp, state=value.state, ts=value.created",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter.schemas.enable": false,
+        "offset.flush.interval.ms": 10000
+    }
+}
